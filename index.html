@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace Registration</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent-color: #2563eb;
+            --border-color: #e2e8f0;
+            --success-color: #16a34a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 480px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-top: 0;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        input[type="tel"]:focus {
+            outline: 2px solid var(--accent-color);
+            border-color: transparent;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        input[type="checkbox"] {
+            margin-top: 4px;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .checkbox-label a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        button {
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            color: var(--success-color);
+        }
+
+        .success-message h3 {
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- The Registration Form -->
+        <form id="registrationForm" onsubmit="handleSubmit(event)">
+            <h2>Workspace Registration</h2>
+            
+            <div class="form-group">
+                <label for="phone">Mobile Phone Number</label>
+                <input type="tel" id="phone" placeholder="(704) 555-0199" required>
+            </div>
+
+            <div class="checkbox-group">
+                <!-- Box is UNCHECKED by default to satisfy carrier rule 30925 -->
+                <input type="checkbox" id="consent" required>
+                <label for="consent" class="checkbox-label">
+                    By providing your phone number and checking this box, you explicitly agree to receive automated transactional reminders, system logs, and account workflow notifications from Jude Gladden Workspace. Message frequency varies. Message and data rates may apply. Reply STOP to opt out at any time. View our <a href="privacy-policy.html" target="_blank">Privacy Policy</a> and <a href="terms-and-conditions.html" target="_blank">Terms</a>.
+                </label>
+            </div>
+
+            <button type="submit">Submit Registration</button>
+        </form>
+
+        <!-- The Success Notification (Hidden until Submit) -->
+        <div id="successMessage" class="success-message">
+            <h3>✓ Registration Successful</h3>
+            <p>Your workspace endpoint has been configured. To finish activation, please send the inbound keyword command <strong>START</strong> from your mobile device.</p>
+        </div>
+    </div>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault(); // Stop page refresh
+            
+            // Hide the form and show the success screen instantly
+            document.getElementById('registrationForm').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
