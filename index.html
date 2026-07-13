@@ -115,12 +115,12 @@
         .success-message {
             display: none;
             text-align: center;
-            color: var(--success-color);
         }
 
-        .success-message h3 {
-            margin-top: 0;
+        .success-title {
+            color: var(--success-color);
             font-size: 1.5rem;
+            margin-top: 0;
         }
     </style>
 </head>
@@ -132,33 +132,41 @@
             <h2>Workspace Registration</h2>
             
             <div class="form-group">
-                <label for="phone">Mobile Phone Number</label>
-                <input type="tel" id="phone" placeholder="(704) 555-0199" required>
+                <label for="phone">Mobile Phone Number (Optional)</label>
+                <input type="tel" id="phone" placeholder="(704) 555-0199">
             </div>
 
             <div class="checkbox-group">
-                <!-- Box is UNCHECKED by default to satisfy carrier rule 30925 -->
-                <input type="checkbox" id="consent" required>
+                <!-- REMOVED "required" attribute so it is completely optional -->
+                <input type="checkbox" id="consent">
                 <label for="consent" class="checkbox-label">
-                    By providing your phone number and checking this box, you explicitly agree to receive automated transactional reminders, system logs, and account workflow notifications from Jude Gladden Workspace. Message frequency varies. Message and data rates may apply. Reply STOP to opt out at any time. View our <a href="privacy-policy.html" target="_blank">Privacy Policy</a> and <a href="terms-and-conditions.html" target="_blank">Terms</a>.
+                    (Optional) I explicitly agree to receive automated transactional reminders, system logs, and account workflow notifications from Jude Gladden Sole Proprietor. Message frequency varies. Message and data rates may apply. Reply STOP to opt out at any time. Consent is not a condition of purchase or service. View our <a href="privacy-policy.html" target="_blank">Privacy Policy</a> and <a href="terms-and-conditions.html" target="_blank">Terms</a>.
                 </label>
             </div>
 
             <button type="submit">Submit Registration</button>
         </form>
 
-        <!-- The Success Notification (Hidden until Submit) -->
+        <!-- Dynamic Success Notification -->
         <div id="successMessage" class="success-message">
-            <h3>✓ Registration Successful</h3>
-            <p>Your workspace endpoint has been configured. To finish activation, please send the inbound keyword command <strong>START</strong> from your mobile device.</p>
+            <h3 class="success-title">✓ Registration Successful</h3>
+            <p id="successBody"></p>
         </div>
     </div>
 
     <script>
         function handleSubmit(event) {
-            event.preventDefault(); // Stop page refresh
+            event.preventDefault();
             
-            // Hide the form and show the success screen instantly
+            const isChecked = document.getElementById('consent').checked;
+            const successBody = document.getElementById('successBody');
+            
+            if (isChecked) {
+                successBody.innerHTML = "Your workspace endpoint has been configured with SMS updates. To finish activation, please send the inbound keyword command <strong>START</strong> from your mobile device.";
+            } else {
+                successBody.innerHTML = "Your workspace has been successfully registered. Since you did not opt-in to SMS updates, no text messages will be sent to your device.";
+            }
+            
             document.getElementById('registrationForm').style.display = 'none';
             document.getElementById('successMessage').style.display = 'block';
         }
